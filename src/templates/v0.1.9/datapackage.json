@@ -1,0 +1,617 @@
+{
+    "name": "project_template-0.1.9",
+    "version": "0.1.9",
+    "author": "",
+    "date": "2021-05-05T21:34:03Z",
+    "profile": "data-package",
+    "resources": [
+        {
+            "path": "project_template/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/datapackage.json",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/config/config.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/moving-stuff-deletemebeforedissemination.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dendrogram/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dendrogram/create_dendrogram.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dendrogram/batch_dendrogram.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dendrogram/scripts/model.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dendrogram/scripts/standalone.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dendrogram/scripts/batch_cluster.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dendrogram/scripts/index_template.html",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/pyldavis/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/pyldavis/create_pyldavis.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/pyldavis/scripts/PyLDAvis.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/pyldavis/scripts/pyldavis_custom.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/pyldavis/scripts/zip.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/import.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/query-builder-bundle.zip",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/query-builder/index.html",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/query-builder/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/query-builder/assets/css/query-builder.default.min.css",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/query-builder/assets/css/styles.css",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/query-builder/assets/js/query-builder.standalone.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/query-builder/assets/js/builder.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/query-builder/assets/config/schema.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/scripts/import.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/scripts/import_tokenizer.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/import/scripts/timer.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/metadata/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/metadata/scattertext.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/metadata/topic_statistics_by_metadata.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/metadata/add_metadata.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/metadata/scripts/scattertext.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/metadata/scripts/topic_stats.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/metadata/scripts/add_metadata.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/create_topic_bubbles.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/scripts/create_topic_bubbles.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/scripts/create_dfrbrowser.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/scripts/zip.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/index.html",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/css/style.css",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/data/.gitkeep",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/data/config.json",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/img/screenshot.png",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/img/we1s_logo.png",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/img/favicon-32.png",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/js/d3-mouse-event.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/js/script.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/js/utils.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/js/worker.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/lib/d3-legend.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/lib/d3.layout.cloud.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/lib/d3.v5.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/lib/dat.gui.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/lib/fetch.umd.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/lib/jquery-1.11.0.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/lib/jquery.json-viewer.css",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/lib/jquery.json-viewer.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/lib/jszip.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_bubbles/tb_scripts/lib/polyfill.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/visualize_diagnostics.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/css/bootstrap.min.css",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/css/styles.css",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/css/all.min.css",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/js/d3.v3.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/js/jquery-3.4.1.slim.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/js/bootstrap.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/js/popper.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-solid-900.woff2",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-solid-900.woff",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-solid-900.ttf",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-solid-900.svg",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-solid-900.eot",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-regular-400.woff2",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-regular-400.woff",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-regular-400.ttf",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-regular-400.svg",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-regular-400.eot",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-brands-400.woff2",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-brands-400.woff",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-brands-400.ttf",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-brands-400.svg",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/webfonts/fa-brands-400.eot",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/scripts/comparison_template.html",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/scripts/index_template.html",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/scripts/zip.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/diagnostics/scripts/diagnostics.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/create_dfrbrowser.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/customize_dfrbrowser.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/index.html",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/css/bootstrap.min.css",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/css/index.css",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/css/bootstrap-theme.min.css",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/css/bootstrap-table.min.css",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/fonts/glyphicons-halflings-regular.woff",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/fonts/glyphicons-halflings-regular.eot",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/fonts/glyphicons-halflings-regular.ttf",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/fonts/glyphicons-halflings-regular.svg",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/img/loading.gif",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/js/worker.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/js/utils.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/js/d3-mouse-event.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/js/extra.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/js/dfb.min.js.custom",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/lib/d3.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/lib/jszip.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/lib/bootstrap.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/lib/jquery-1.11.0.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/dfrb_scripts/lib/bootstrap-table.min.js",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/scripts/create_dfrbrowser.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/dfr_browser/scripts/zip.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/comparing/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/comparing/compare_word_frequencies.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/comparing/scripts/compare_word_frequencies.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/json_utilities/json_utilities.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/json_utilities/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/json_utilities/remove_fields.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/json_utilities/scripts/json_utilities.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/export/json_to_txt_csv.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/export/export_project.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/export/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/export/scripts/export_package.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/export/scripts/json_to_txt_csv.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_modeling/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_modeling/model_topics.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_modeling/scripts/scale_topics.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_modeling/scripts/prepare_mallet_import.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_modeling/scripts/mallet.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_modeling/scripts/timer.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_modeling/scripts/we1s_standard_stoplist.txt",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/topic_modeling/scripts/__init__.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/counting/vocab.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/counting/tokenize.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/counting/count_documents.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/counting/collocation.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/counting/docs_by_search_term.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/counting/frequency.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/counting/tfidf.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/counting/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/counting/scripts/count_docs.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/counting/scripts/count_tokens.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/counting/scripts/tokenizer.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/counting/scripts/vocab.py",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/utilities/zip_folder.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/utilities/README.md",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/utilities/clear_caches.ipynb",
+            "profile": "data-resource"
+        },
+        {
+            "path": "project_template/modules/utilities/scripts/clear_caches.py",
+            "profile": "data-resource"
+        }
+    ]
+}

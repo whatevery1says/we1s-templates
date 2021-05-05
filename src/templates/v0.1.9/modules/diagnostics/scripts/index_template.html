@@ -1,0 +1,518 @@
+<html>
+
+<head>
+    <title>MALLET Diagnostics Individual Model Tool</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/d3.v3.min.js" charset="utf-8"></script>
+    <script src="js/jquery-3.4.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+        h3 {
+            margin-bottom: 5px;
+        }
+
+        .space-right {
+            margin-right: 5px;
+        }
+
+        #plot {
+            margin-top: 10px;
+        }
+
+        div.topic {
+            margin: 30px;
+            cursor: default;
+        }
+
+        div.scrolltable {
+            height: 600px;
+            overflow-y: auto;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 0;
+        }
+
+        span.anchor {
+            color: hsl(100, 60%, 60%);
+        }
+
+        span.random {
+            color: hsl(260, 60%, 60%);
+        }
+
+        table {
+            margin-bottom: 0 !important;
+        }
+
+        td {
+            font-size: 90%;
+            cursor: default;
+        }
+
+        svg {
+            float: left;
+            padding-left: 15px;
+        }
+
+        text:hover {
+            fill: blue;
+        }
+
+        line.rule {
+            stroke: #ccc;
+        }
+
+        line.nearest {
+            stroke: #000;
+            stroke-width: 5;
+            opacity: 0.5;
+        }
+
+        line.sampled {
+            stroke: #44a;
+            stroke-width: 5;
+            opacity: 0.5;
+        }
+
+        text.label {
+            fill: #ccc;
+        }
+
+        .axis text {
+            font-size: x-small;
+        }
+
+        .axis path {
+            stroke: black;
+            fill: none;
+        }
+
+        .axis line {
+            stroke: black;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">MALLET Diagnostics Tool</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="modal" data-target=".bd-modal-xl">About this Tool</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="comparison.html">Model Comparison Tool</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" id="numTopicSelect">
+                <label for="numTopics" class="space-right">Number of Topics</label>
+                <select class="form-control space-right" id="numTopics" name="topics" onchange="this.form.submit()">
+                    OPTIONS HERE
+                </select>
+        </form>
+        <form class="form-inline my-2 my-lg-0" id="form">
+            <label for="xAttr" class="space-right">X</label>
+            <select class="form-control" id="xAttr" name="xAttr" style="margin-right: 5px;"></select>
+            <label for="yAttr" class="space-right">Y</label>
+            <select class="form-control space-right" id="yAttr" name="yAttr"></select>
+        </form>
+      </div>
+    </nav>    
+
+    <!-- Modal -->
+    <div class="modal fade bd-modal-xl" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="aboutModalLabel">About the MALLET Diagnostics Tool</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This tool is a modified form of the diagnostics visualization tool on the <a
+                            href="http://mallet.cs.umass.edu/diagnostics.php" target="_blank">MALLET website</a>. Use
+                        the dropdown menus to toggle between
+                        different models and to visualize the models according to a variety of criteria (e.g.
+                        "coherence" and tokens"). Explantions for these criteria given on the MALLET website are
+                        reproduced in shortened form below. Please see the <a
+                            href="http://mallet.cs.umass.edu/diagnostics.php" target="_blank">original page</a>
+                        for full explanations with mathematical definitions. One thing not stated in the discussion 
+                        there is that in the keywords table, word color is scaled from black to red. Redder words 
+                    have higher negative word coherence, indicating that they are words that don't tend to co-occur 
+                    often with the other terms in the topic. These terms are frequently named entities.</p>
+                    
+                <p>The examples below will refer to a <a href="http://mallet.cs.umass.edu/diagnostics.xml" target="_blank">sample 
+                   diagnostics file</a> from a model trained on Wikipedia articles and an 
+                    <a href="http://mallet.cs.umass.edu/diagnostics.html" target="_blank">interactive interface</a> that displays 
+                    data from that file.</p>
+
+                    <p>The following metrics are defined at the level of topics.</p>
+
+                    <p><strong>tokens.</strong> This metric measures the number of word tokens currently assigned to the
+                        topic.
+                        Comparing this number to the sum of the token counts for all topics will give you the proportion
+                        of the corpus assigned to the topic. If you are using optimized hyperparameters this number will
+                        vary considerably across topics; otherwise it will be roughly the same for all topics. We
+                        usually
+                        find topics most interesting if they are not on the extremes of this range. Small numbers
+                        (relative
+                        to other topics) are often a sign that a topic may not be reliable: we don't have enough
+                        observations
+                        to get a good sense of the topic's word distribution. Large numbers may also be bad: extremely
+                        frequent topics are often "not-quite-stopwords". For example, in the <a href="http://mallet.cs.umass.edu/diagnostics.xml" target="_blank">sample model</a> the largest
+                        topic
+                        is "time number term part system form".</p>
+
+                    <p><strong>document entropy.</strong> We usually think of the probability of a topic given a
+                        document.
+                        For this metric we calculate the probability of documents given a topic. We count the frequency
+                        of
+                        a topic over all documents, and normalize to get a distribution, then calculate the entropy of
+                        that
+                        distribution. A topic with low entropy (ie high predictability) will be concentrated
+                        in a
+                        few documents, while a topic with higher entropy will be spread evenly over many documents. In
+                        the
+                        example topic model, the topics "list links history external information site" and "game team
+                        league
+                        player players football games" have roughly the same number of tokens, but the "list" topic has
+                        much
+                        higher entropy. It occurs to a small degree in many documents, while the "game" topic occurs a
+                        lot
+                        in a smaller number of documents. Low entropy isn't necessarily good: it can indicate unusual
+                        documents (did you accidentally import the Mac <code>.DS_Store</code> file?) or the presence of
+                        documents in other languages.</p>
+
+                    <p><strong>word length.</strong> The average length, in characters, of the displayed top words.
+                        Words are not weighted by probablity or rank position. This is a useful proxy for topic
+                        specificity.
+                        Longer words often carry more specific meaning, so if the topic brings together lots of short
+                        words,
+                        it's probably not a very specific topic. This can also be a good way to pick up the "hey, looks
+                        like
+                        we've got some Spanish!" topic because we often pick up the short words that would be stopwords
+                        if
+                        we were modeling a corpus in that language. The example topic "de french la france spanish spain
+                        italian paris el le" has a number of this type of short words, but they seem to be due to
+                        Wikipedia
+                        articles talking about French, Spanish, and Italian things rather than actual text in those
+                        languages.</p>
+
+                    <p><strong>coherence.</strong> This metric measures whether the words in a topic tend to co-occur
+                        together.
+                        We add up a score for each distinct pair of top ranked words. The score is the log of the
+                        probability that a document containing at least one instance of the higher-ranked word also
+                        contains at least one instance of the lower-ranked word.</p>
+                    <p>To avoid log zero errors we add the "beta" topic-word smoothing parameter specified when you
+                        calculate diagnostics. Since these scores are log probabilities they are negative. Large
+                        negative values indicate words that don't co-occur often; values closer to zero indicate that
+                        words tend to co-occur more often. The least coherent topic in the sample file is "polish
+                        poland danish denmark sweden swedish na norway norwegian sk red iceland bj baltic copenhagen
+                        cave greenland krak gda faroese". This topic seems to be about Northern and Eastern European
+                        countries, but the short abbreviations "na" and "sk" and the words "red" and "cave" don't really
+                        fit.</p>
+
+                    <p><strong>uniform_dist.</strong> We want topics to be specific. This metric measures the distance
+                        from a topic's distribution over words to a uniform distribution. We calculate distance using
+                        Kullback-Leibler divergence.</p>
+                    <p>Larger values indicate more specificity.</p>
+
+                    <p><strong>corpus_dist.</strong> This metric measures how far a topic is from the overall
+                        distribution
+                        of words in the corpus — essentially what you would get if you "trained" a model with one topic.
+                        We calculate distance using Kullback-Leibler divergence. A greater distance means the topic is
+                        more distinct; a smaller distanace means that the topic is more similar to the corpus
+                        distribution.
+                        Not surprisingly, it correlates with number of tokens since a topic that makes up a large
+                        proportion of the tokens in the corpus is likely to be more similar to the overall corpus
+                        distribution. The closest topic to the corpus distribution is "time number term part system
+                        form".</p>
+
+                    <p><strong>effective number of words.</strong> This metric is equivalent to the 
+                        <a href="https://en.wikipedia.org/wiki/Effective_number_of_parties" target="_blank">effective number of
+                            parties</a> metric in Political Science. For each word we calculate the inverse of the squared
+                        probability of the word in the topic, and then add those numbers up. Larger numbers indicate
+                        more specificity. It is similar to distance from the uniform distribution, but produces a value
+                        that may be more interpretable.</p>
+
+                    <p><strong>token/document discrepancy.</strong> This metric looks for "bursty" words within topics.
+                        We compare two distributions over words using Jensen-Shannon distance. The first distribution
+                        is the usual topic-word distribution proportional to the number of tokens of type w that are
+                        assigned to the topic. The second distribution is proportional to the number of documents that
+                        contain at least one token of type w that is assigned to the topic. A words that occurs many
+                        times in only a few documents may appear prominently in the sorted list of words, but may not
+                        be a good representative word for the topic. This metric compares the number of times a word
+                        occurs in a topic (measured in tokens) and the number of documents the word occurs in as that
+                        topic (instances of the word assigned to other topics are not counted). The highest ranked topic
+                        in this metric is the "polish poland danish denmark sweden swedish na norway norwegian sk red"
+                        topic, suggesting that those ill-fitting words may be isolated in a few documents. Although this
+                        metric has the same goal as coherence, the two don't appear to correlate well: bursty words
+                        aren't necessarily unrelated to the topic, they're just unusually frequent in certain contexts.
+                    </p>
+
+                    <p><strong>rank 1 documents.</strong> Some topics are specific, while others aren't really
+                        "topics" but language that comes up because we are writing in a certain context.
+                        Academic writing will talk about "paper abstract data", and a Wikipedia article will talk about
+                        "list links history". The difference is often measurable in terms of burstiness. A content-ful
+                        topic will occur in relatively few documents, but when it does, it will produce a lot of tokens.
+                        A "background" topic will occur in many documents and have a high overall token count,
+                        but never produce many tokens in any single document. This metric counts the frequency at which
+                        a given topic is the single most frequent topic in a document. Specific topics like
+                        "music album band song" or "cell cells disease dna blood treatment" are the "rank 1" topic
+                        in many documents. High token-count topics often have few rank-1 documents. This metric is
+                        often useful as a way to identify corpus-specific stopwords. But rarer topics can also have
+                        few rank-1 documents: "day year calendar days years month" is a representative example — topics
+                        for days of the week and units of measurement often appear in documents as a distinct discourse,
+                        but they are rarely the focus of a document.</p>
+
+                    <p><strong>allocation count.</strong> This metric has a similar motivation to the rank-1-docs
+                        metric.
+                        For each document we can calculate the percentage of that document assigned to a given topic.
+                        We can then observe how often that percentage is above a certain threshold, by default 30%.</p>
+
+                    <p><strong>allocation ratio.</strong> This metric reports the ratio of allocation counts at two
+                        different thresholds, by default 50% and 2%.</p>
+
+                    <p><strong>exclusivity.</strong> This metric measures the extent to which the top words for this
+                        topic are do not appear as top words in other topics -- i.e., the extent to which its top
+                        words are 'exclusive.' The value is the average, over each top word, of the probability of
+                        that word in the topic divided by the sum of the probabilities of that word in all topics.
+                        Of the top words in the topic, how often to they occur in other topics? Exclusivity correlates
+                        (negatively) with token count, but also indicates vaguer, more general topics. "black hand
+                        back body cross man" is about the same size as "isbn book press published work books",
+                        but is much less exclusive.</p>
+                    <p>For those metrics that are decomposable into word-specific terms we report the values for
+                        each individual word.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Body -->
+    <div id="plot"></div>
+
+
+    <script>
+        function getUrlVars() {
+            var vars = {}
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = value
+            })
+            return vars
+        }
+
+        function getUrlParam(parameter, defaultvalue) {
+            var urlparameter = defaultvalue
+            if (window.location.href.indexOf(parameter) > -1) {
+                urlparameter = getUrlVars()[parameter]
+            }
+            return urlparameter
+        }
+
+        var numTopics = getUrlParam('topics', '100')
+        document.querySelector('#numTopics').value = numTopics
+        var filename = 'xml/diagnostics' + numTopics + '.xml'
+        var topics = [];
+        var topicTags;
+        var svg;
+        var height = 400;
+        var width = 400;
+        var padding = 50;
+
+        var topicGroups;
+
+        var currentXAttr = "coherence";
+        var currentYAttr = "tokens";
+
+        var topicAttributes = ["id", "tokens", "document_entropy", "word-length", "coherence", "uniform_dist",
+            "corpus_dist", "eff_num_words", "token-doc-diff", "rank_1_docs", "allocation_ratio", "allocation_count",
+            "exclusivity"
+        ];
+        var wordAttributes = ["rank", "count", "prob", "cumulative", "coherence", "docs", "word-length", "uniform_dist",
+            "corpus_dist", "token-doc-diff", "exclusivity"
+        ];
+
+        d3.select("#xAttr").selectAll("option").data(topicAttributes).enter()
+            .append("option").attr("value", Object).text(function (a) {
+                return a.replace(/_/g, " ")
+            })
+            .property("selected", function (a) {
+                return a === currentXAttr ? "selected" : "";
+            });
+
+        d3.select("#yAttr").selectAll("option").data(topicAttributes).enter()
+            .append("option").attr("value", Object).text(function (a) {
+                return a.replace(/_/g, " ")
+            })
+            .property("selected", function (a) {
+                return a === currentYAttr ? "selected" : "";
+            });
+
+        d3.select("#xAttr").on("change", function (x) {
+            currentXAttr = this.options[this.selectedIndex].getAttribute("value");
+            show(currentXAttr, currentYAttr);
+        })
+        d3.select("#yAttr").on("change", function (x) {
+            currentYAttr = this.options[this.selectedIndex].getAttribute("value");
+            show(currentXAttr, currentYAttr);
+        })
+
+
+        function xmlToObject(element, attrs) {
+            var o = {};
+            attrs.forEach(function (a) {
+                o[a] = Number(element.getAttribute(a));
+            });
+            return o;
+        }
+
+        function show(xAttr, yAttr) {
+
+            var xExtent = d3.extent(topics, function (topic) {
+                return topic[xAttr];
+            });
+            var yExtent = d3.extent(topics, function (topic) {
+                return topic[yAttr];
+            });
+
+            var xScale = d3.scale.linear().domain(xExtent).range([padding, width - padding]);
+            var yScale = d3.scale.linear().domain(yExtent).range([height - padding, padding]);
+
+            var xAxis = d3.svg.axis().scale(xScale);
+            var yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+            svg.selectAll(".axis").remove();
+
+            /* Sihwa Park: added gX, gY variables for later use in zoom function */
+            var gX = svg.append("g").attr("class", "axis").attr("transform", "translate(0," + (height - padding) + ")").call(
+                xAxis);
+            var gY = svg.append("g").attr("class", "axis").attr("transform", "translate(" + padding + ",0)").call(yAxis);
+            
+
+            if (d3.select(".topicGroup").attr("transform")) {
+                topicGroups.transition().attr("transform", function (d) {
+                    return "translate(" + xScale(d[xAttr]) + "," + yScale(d[yAttr]) + ")";
+                })
+            } else {
+                topicGroups.attr("transform", function (d) {
+                    return "translate(" + xScale(d[xAttr]) + "," + yScale(d[yAttr]) + ")";
+                })
+            }
+
+            /* Sihwa Park: adding zoom behavior */
+            var zoom = d3.behavior.zoom()
+                    .x(xScale)
+                    .y(yScale)
+                    .scaleExtent([0.5, 10])
+                    .on("zoom", function() {
+
+                        gX.call(xAxis);
+                        gY.call(yAxis);
+
+                        topicGroups.attr("transform", function (d) {
+                            return "translate(" + xScale(d[xAttr]) + "," + yScale(d[yAttr]) + ")";
+                        })
+                    });
+
+            svg.call(zoom);
+        }
+
+        d3.xml(filename, function (error, xml) {
+            topicTags = xml.documentElement.getElementsByTagName("topic");
+            for (var i = 0; i < topicTags.length; i++) {
+                var topic = xmlToObject(topicTags[i], topicAttributes);
+                var words = topicTags[i].getElementsByTagName("word");
+                topic.words = [];
+                for (var w = 0; w < words.length; w++) {
+                    var word = xmlToObject(words[w], wordAttributes);
+                    word.word = words[w].textContent;
+                    topic.words.push(word);
+                }
+                topics.push(topic);
+            }
+
+            svg = d3.select("#plot").append("svg").attr("height", height).attr("width", width);
+
+            var scrollDiv = d3.select("#plot").append("div").attr("class", "scrolltable");
+
+            table = scrollDiv.append("table");
+            table.attr("class", "table table-sm  table-striped table-hover table-bordered");
+            table.append("tbody");
+            tbody = d3.select("tbody")
+
+            var coherenceScale = d3.scale.linear().domain([-1, -5]).range(["#000000", "#ff0000"]);
+
+            topics.forEach(function (topic) {
+                var row = tbody.append("tr");
+                var textCell = row.append("td");
+                textCell.attr("id", "table_" + topic.id).text((topic.id + 1) + ". ")
+                    .on("click", function () {
+                        d3.selectAll("td").style("font-weight", "normal");
+                        d3.select("#table_" + topic.id).style("font-weight", "bold");
+                        d3.selectAll("circle").style("fill", "#bbbbff");
+                        d3.select("#circle_" + topic.id).transition().style("fill", "#ff7777");
+                    });
+                topic.words.forEach(function (word) {
+                    textCell.append("span").style("color", coherenceScale(word.coherence)).text(
+                        word.word + " ");
+                });
+            });
+
+            /* Sihwa Park: adding clipPath */
+            svg.append("defs").append("clipPath").attr("id", "clip")
+                .append("rect")
+                    .attr("x", padding)
+                    .attr("y", padding)
+                    .attr("width", width - padding * 2)
+                    .attr("height", height - padding * 2);
+
+            var g = svg.append("g").attr("clip-path", "url(#clip)");
+            
+            /* Sihwa Park: instead of svg.selectAll(".topicGroup"),
+               it uses the group element created above for clipping 
+            */
+            topicGroups = g.selectAll(".topicGroup").data(topics);
+            topicGroups.enter().append("g").attr("class", "topicGroup");
+            topicGroups.append("circle").attr("r", 8).style("fill", "#bbbbff").style("opacity", 0.7).attr("id",
+                    function (topic) {
+                        return "circle_" + topic.id;
+                    })
+                .on("click", function (topic) {
+                    d3.selectAll("td").style("font-weight", "normal");
+                    d3.select("#table_" + topic.id).style("font-weight", "bold");
+                    d3.selectAll("circle").style("fill", "#bbbbff");
+                    d3.select("#circle_" + topic.id).transition().style("fill", "#ff7777");
+
+                    var newScrollTop = -150 + (topic.id / topics.length) * d3.select(".scrolltable")
+                        .property("scrollHeight");
+                    d3.select(".scrolltable").transition().tween("zoomToTopic", function () {
+                        var interp = d3.interpolateNumber(this.scrollTop, newScrollTop);
+                        return function (t) {
+                            this.scrollTop = interp(t);
+                        };
+                    });
+                });
+            topicGroups.append("text").text(function (topic) {
+                return topic.id + 1;
+            }).style("font-size", "x-small").style("pointer-events", "none");
+
+            show("coherence", "tokens");
+
+        });
+    </script>
+
+    </p>
+</body>
+
+</html>

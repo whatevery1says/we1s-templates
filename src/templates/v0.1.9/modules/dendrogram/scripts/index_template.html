@@ -1,0 +1,138 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"
+        integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        window.PlotlyConfig = {
+            MathJaxConfig: 'local'
+        };
+    </script>
+    <style type="text/css">
+        #cluster-graph-container {
+            width: 1200px;
+            margin: auto;
+            margin-left: 100px;
+            height: 600px;
+        }
+
+        #loading {
+            width: 34px;
+            height: 34px;
+            margin: auto;
+            margin-top: 300px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            border: none;
+        }
+
+        #topic-keys-div {
+            margin: auto;
+            margin-left: 100px;
+
+        }
+
+        #topic-keys-label {
+            font-weight: bold;
+        }
+
+        .xaxislayer-above,
+        x.tick {
+            cursor: pointer;
+            pointer-events: all;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav"></ul>
+        </div>
+    </nav>
+    <h3 id="title" class="text-center" style="display: none;">Euclidean Distance with Average Linkage</h3>
+    <div id="loading"><i class="fas fa-2x fa-spinner fa-spin"></i><span class="sr-only">Loading...</span></div>
+    <div id="cluster-graph-container">
+        <div id="cluster_graph"></div>
+    </div>
+    <div id="topic-keys-div">
+        <span id="topic-keys-label">Hover over Topic Labels to View Topic Keywords</span> <span id="topic-keys"></span>
+    </div>
+    <script>
+       function getGraph(url, fromLink = false) {
+            var titles = {}
+            // Get the first url and title if not defined
+            if (url === undefined) {
+                var title = titles[Object.keys(titles)[0]]
+                url = 'partials/' + Object.keys(titles)[0]
+            } else {
+                title = titles[url]
+                url = 'partials/' + url
+            }
+             $.ajax({
+                type: 'GET',
+                url: url,
+                contentType: 'application/json;charset=UTF-8',
+                //dataType: 'html',
+                beforeSend: function () {
+                    $('#cluster_graph').hide()
+                    $('#title').hide()
+                    $('#loading').show()
+                },
+                success: function (response) {
+                    $('#cluster-graph-container').empty().append(response)
+//                     $('#cluster_graph').html(response)
+                    $('#cluster_graph').show()
+                    $('#title').html(title).show()
+                    if (fromLink === true) {
+                        $('.nav-item').removeClass('active')
+                        $('.sr-only').remove()
+                        $('a[href="' + url + '"]').parent().addClass('active')
+                        let sr = $('<span class="sr-only">')
+                        $('a[href="' + url + '"]').append(sr)
+                    }
+                    $('#loading').hide()
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log('bad: ' + textStatus + ': ' + errorThrown)
+                }
+            })
+        }
+        $(document).ready(function () {
+            getGraph()
+        })
+        $(document).on('click', '.nav-link', function (e) {
+            e.preventDefault()
+            var href = $(this).attr('href')
+            getGraph(href, fromLink=true)
+        })
+        $(document).on('mouseenter', '.xtick', function () {
+            var keywords = []
+            $('#topic-keys-label').html($(this).children().eq(0).text() + ':')
+            $('#topic-keys').html(keywords[$(this).children().eq(0).text()])
+        })
+    </script>
+</body>
+
+</html>
