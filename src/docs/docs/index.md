@@ -1,6 +1,6 @@
 # Introduction
 
-The WE1S Workspace is a containerized environment for importing, managing, and analyzing textual data using a variety of built-in analysis and visualization tools. It is designed to be well-documented and easy to use, but extendible, code-based environment. In the WE1S Workspace, users interact with their data inside a project created from a template.
+The WE1S Workspace is a containerized environment for importing, managing, and analyzing textual data using a variety of built-in analysis and visualization tools. It is designed to be well-documented and easy to use, but extendible, code-based environment. In the WE1S Workspace, users interact with their data inside a project created from a template. The latest version of the template can be downloaded from [its Github repo](https://github.com/whatevery1says/we1s-templates).
 
 !!! info "Version Compatibility"
     This documentation is compatible with v{{ config.workspace_version }} of the WE1S Workspace and v{{ config.template_version }} of the WE1S <span class="no-gloss">project</span> template.
@@ -14,4 +14,4 @@ This website is designed to get you up and running once you have installed the W
 
 For more information about the WhatEvery1Says (WE1S) Project can be found on the WE1S website: <a href="https://we1s.ucsb.edu/" target="_blank">https://we1s.ucsb.edu/</a>.
 
-Last update: 2021-03-07
+Last update: 2023-06-14

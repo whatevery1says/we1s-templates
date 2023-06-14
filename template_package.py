@@ -78,7 +78,7 @@ class TemplatePackage():
             os.remove(archive_file)
         # Bring templates up to the project root level
         if datapackage:
-            root = [x for x in os.listdir(destination_dir) if os.path.isdir(x)][0]
+            root = [x for x in os.listdir(destination_dir) if os.path.isdir(os.path.join(destination_dir, x))][0]
             for filename in os.listdir(os.path.join(destination_dir, root)):
                 shutil.move(os.path.join(destination_dir + '/' + root, filename), os.path.join(destination_dir, filename))
             os.rmdir(os.path.join(destination_dir, root))
